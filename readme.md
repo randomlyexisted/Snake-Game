@@ -48,8 +48,5 @@ dist/
 - Python
 - Pygame
 
-## Screenshot
-(Add screenshot here later)
-
 ## Author
-Made by [Your Name]
+Made by [Lakshya Sharma]
