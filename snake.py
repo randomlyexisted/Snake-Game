@@ -19,11 +19,29 @@ def reset_game():
     dir = "right"
     score = 0
     game_over = False
+    started = False
     food = spawn_food()
+
+def draw_menu():
+    window.fill(base_color)
+    title_font = pygame.font.SysFont("arial", 60, bold=True)
+    title_text = title_font.render("SNAKE", True, text_color)
+    window.blit(title_text, (screen_width//2-title_text.get_width()//2, screen_height//2 - 100))
+
+    sub_text = font.render("Press Enter to start", True, text_color)
+    window.blit(sub_text, (screen_width//2 - sub_text.get_width()//2, screen_height//2))
+
+    hint_text = font.render("Use Arrow Keys to move", True, text_color)
+    window.blit(hint_text, (screen_width//2 - hint_text.get_width()//2, screen_height//2+50))
+    pygame.display.update()
 
 font = pygame.font.SysFont("arial", 30)
 score = 0
-high_score = 0
+try:
+    with open("high_score.txt", "r") as f:
+        high_score = int(f.read())
+except:
+    high_score =0
 
 
 # Colors
@@ -42,6 +60,7 @@ pygame.display.update()
 
 exit_game = False
 game_over = False
+started = False
 play_x = 100
 play_y = 50
 play_width = 600
@@ -64,6 +83,10 @@ while not exit_game:
     
         # Input update
         if event.type == pygame.KEYDOWN:
+            # Start game from menu
+            if event.key == pygame.K_RETURN and not started:
+                started = True
+            # Direction controls
             if event.key == pygame.K_RIGHT and dir in ("up", "down"):
                 dir = "right"
             elif event.key == pygame.K_LEFT and dir in ("up", "down"):
@@ -72,11 +95,15 @@ while not exit_game:
                 dir = "up"
             elif event.key == pygame.K_DOWN and dir in ("right", "left"):
                 dir = "down"
+            # Restart from game over
             elif event.key == pygame.K_r and game_over:
                 # Reset
                 reset_game()
+                started = False # go back to menu
 
-    if not game_over:
+    if not started:
+        draw_menu()
+    elif not game_over:
         # Movement
         snake_x = snake[0][0]
         snake_y = snake[0][1]
@@ -95,6 +122,8 @@ while not exit_game:
             game_over = True;
             if score > high_score:
                 high_score = score
+                with open("high_score.txt", "w") as f:
+                    f.write(str(high_score))
         
 
         # Horizontal Wrap
