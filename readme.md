@@ -1,33 +1,52 @@
 # Snake Game 🐍
 
-A simple Snake Game made using Python and Pygame.
+A two-player arcade Snake game made using Python and Pygame.
+
+## Files
+- `snake.py` — Single player mode
+- `arcade_snake.py` — Two player arcade mode
 
 ## Features
+- Two player multiplayer on the same keyboard
 - Grid-based snake movement
-- Food spawning system
-- Score and high score tracking (saved to file)
-- Screen wrapping
+- Wall collision (death on boundary)
+- Food spawning (shared between both players)
+- Score tracking for both players
 - Start menu screen
+- Game over screen with winner announcement
 - Restart option after game over
 
 ## Controls
+
+### Player 1
 - Arrow Keys → Move Snake
-- Enter → Start Game 
+
+### Player 2
+- W A S D → Move Snake
+
+### General
+- Enter → Start Game
 - R → Restart after Game Over
 
 ## Requirements
-- Python 3
-- Pygame
+- Python 3.10+
+- Pygame CE
 
 Install dependencies:
 ```bash
-pip install pygame
+pip install -r requirements.txt
 ```
 
 ## Run the Game
 
+Single player:
 ```bash
 python snake.py
+```
+
+Two player arcade:
+```bash
+python arcade_snake.py
 ```
 
 ## Build Executable
@@ -35,7 +54,7 @@ python snake.py
 Using PyInstaller:
 
 ```bash
-pyinstaller --onefile --windowed snake.py
+pyinstaller --onefile --windowed arcade_snake.py
 ```
 
 The executable will be created inside:
@@ -46,7 +65,7 @@ dist/
 
 ## Technologies Used
 - Python
-- Pygame
+- Pygame CE
 
 ## Author
-Made by [Lakshya Sharma]
+Made by Lakshya Sharma
